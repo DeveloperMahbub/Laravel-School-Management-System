@@ -11,6 +11,9 @@ use App\Http\Controllers\Backend\Setup\StudentClassController;
 use App\Http\Controllers\Backend\Setup\StudentGroupController;
 use App\Http\Controllers\Backend\Setup\StudentYearController;
 use App\Http\Controllers\Backend\Setup\SubjectController;
+use App\Http\Controllers\Backend\Student\ExamFeeController;
+use App\Http\Controllers\Backend\Student\MonthlyFeeController;
+use App\Http\Controllers\Backend\Student\RegistrationFeeController;
 use App\Http\Controllers\Backend\Student\StudentRegController;
 use App\Http\Controllers\Backend\Student\StudentRollController;
 use App\Http\Controllers\Backend\UserController;
@@ -155,6 +158,21 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
         Route::get('/roll/view', [StudentRollController::class, 'view'])->name('students.roll.view');
         Route::get('/roll/get-student', [StudentRollController::class, 'getStudent'])->name('students.registration.get-student');
         Route::post('/roll/store', [StudentRollController::class, 'store'])->name('students.roll.store');
+
+        //Student Registration Fee
+        Route::get('/reg/fee/view', [RegistrationFeeController::class, 'view'])->name('students.reg.fee.view');
+        Route::get('/reg/get-student', [RegistrationFeeController::class, 'getStudent'])->name('students.reg.fee.get-student');
+        Route::get('/reg/fee/payslip', [RegistrationFeeController::class, 'payslip'])->name('students.reg.fee.payslip');
+
+        //Student Monthly Fee
+        Route::get('/month/fee/view', [MonthlyFeeController::class, 'view'])->name('students.monthly.fee.view');
+        Route::get('/month/get-student', [MonthlyFeeController::class, 'getStudent'])->name('students.monthly.fee.get-student');
+        Route::get('/month/fee/payslip', [MonthlyFeeController::class, 'payslip'])->name('students.monthly.fee.payslip');
+
+        //Student Exam Fee
+        Route::get('/exam/fee/view', [ExamFeeController::class, 'view'])->name('students.exam.fee.view');
+        Route::get('/exam/get-student', [ExamFeeController::class, 'getStudent'])->name('students.exam.fee.get-student');
+        Route::get('/exam/fee/payslip', [ExamFeeController::class, 'payslip'])->name('students.exam.fee.payslip');
     });
 
 });

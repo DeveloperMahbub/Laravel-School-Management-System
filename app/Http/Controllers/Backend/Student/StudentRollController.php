@@ -4,15 +4,9 @@ namespace App\Http\Controllers\Backend\Student;
 
 use App\Http\Controllers\Controller;
 use App\Models\AssignStudent;
-use App\Models\DiscountStudent;
 use App\Models\StudentClass;
-use App\Models\StudentGroup;
-use App\Models\StudentShift;
-use App\Models\User;
 use App\Models\Year;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use PDF;
 
 class StudentRollController extends Controller
 {

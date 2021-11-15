@@ -147,6 +147,24 @@
               <p>Roll Genarate</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('students.reg.fee.view') }}" class="nav-link {{ ($route == 'students.reg.fee.view')? 'active': '' }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Registration Fee</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('students.monthly.fee.view') }}" class="nav-link {{ ($route == 'students.monthly.fee.view')? 'active': '' }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Monthly Fee</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('students.exam.fee.view') }}" class="nav-link {{ ($route == 'students.exam.fee.view')? 'active': '' }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Exam Fee</p>
+            </a>
+          </li>
         </ul>
       </li>
       
