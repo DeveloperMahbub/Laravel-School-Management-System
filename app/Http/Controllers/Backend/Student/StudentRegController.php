@@ -268,7 +268,7 @@ class StudentRegController extends Controller
     }
     public function details($student_id)
     {
-        $data['details'] =  AssignStudent::where('student_id',$student_id)->first();
+        $data['details'] =  AssignStudent::with('student','discount')->where('student_id',$student_id)->first();
         // return view('backend.student.student_reg.student-details-pdf',$data);
         $pdf = PDF::loadView('backend.student.student_reg.student-details-pdf', $data);
         return $pdf->stream('student_info.pdf');

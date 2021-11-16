@@ -27,7 +27,6 @@
         </li>
       @endif
         
-      
 
       <li class="nav-item {{ ($prefix == '/profiles')? 'menu-open': '' }}">
         <a href="#" class="nav-link">
@@ -163,6 +162,30 @@
             <a href="{{ route('students.exam.fee.view') }}" class="nav-link {{ ($route == 'students.exam.fee.view')? 'active': '' }}">
               <i class="far fa-circle nav-icon"></i>
               <p>Exam Fee</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item {{ ($prefix == '/employees')? 'menu-open': '' }}">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-user-tie"></i>
+          <p>
+            Manage Employee
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{ route('employees.reg.view') }}" class="nav-link {{ ($route == 'employees.reg.view')? 'active': '' }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Employee Registration</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('employees.salary.view') }}" class="nav-link {{ ($route == 'employees.salary.view')? 'active': '' }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Employee Salary</p>
             </a>
           </li>
         </ul>

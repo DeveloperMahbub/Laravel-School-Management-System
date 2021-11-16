@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Backend\Employee\EmployeeRegController;
+use App\Http\Controllers\Backend\Employee\EmployeeSalaryController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\Setup\AssignSubjectController;
 use App\Http\Controllers\Backend\Setup\DesignationController;
@@ -173,6 +175,25 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
         Route::get('/exam/fee/view', [ExamFeeController::class, 'view'])->name('students.exam.fee.view');
         Route::get('/exam/get-student', [ExamFeeController::class, 'getStudent'])->name('students.exam.fee.get-student');
         Route::get('/exam/fee/payslip', [ExamFeeController::class, 'payslip'])->name('students.exam.fee.payslip');
+    });
+
+    //Employee Management
+    Route::prefix('employees')->group(function(){
+        //Employee Registration
+        Route::get('/reg/view', [EmployeeRegController::class, 'view'])->name('employees.reg.view');
+        Route::get('/reg/add', [EmployeeRegController::class, 'add'])->name('employees.reg.add');
+        Route::post('/reg/store', [EmployeeRegController::class, 'store'])->name('employees.reg.store');
+        Route::get('/reg/edit/{id}', [EmployeeRegController::class, 'edit'])->name('employees.reg.edit');
+        Route::post('/reg/update/{id}', [EmployeeRegController::class, 'update'])->name('employees.reg.update');
+        Route::get('/reg/details/{id}', [EmployeeRegController::class, 'details'])->name('employees.reg.details');
+        Route::get('/reg/delete/{id}', [EmployeeRegController::class, 'delete'])->name('employees.reg.delete');
+
+        //Employee Salary
+        Route::get('/salary/view', [EmployeeSalaryController::class, 'view'])->name('employees.salary.view');
+        Route::get('/salary/increment/{id}', [EmployeeSalaryController::class, 'increment'])->name('employees.salary.increment');
+        Route::post('/salary/increment/update/{id}', [EmployeeSalaryController::class, 'update'])->name('employees.salary.update');
+        Route::get('/salary/details/{id}', [EmployeeSalaryController::class, 'details'])->name('employees.salary.details');
+        Route::get('/salary/delete/{id}', [EmployeeSalaryController::class, 'delete'])->name('employees.salary.delete');
     });
 
 });
