@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Backend\Employee\EmployeeAttendController;
+use App\Http\Controllers\Backend\Employee\EmployeeLeaveController;
 use App\Http\Controllers\Backend\Employee\EmployeeRegController;
 use App\Http\Controllers\Backend\Employee\EmployeeSalaryController;
 use App\Http\Controllers\Backend\ProfileController;
@@ -194,6 +196,24 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
         Route::post('/salary/increment/update/{id}', [EmployeeSalaryController::class, 'update'])->name('employees.salary.update');
         Route::get('/salary/details/{id}', [EmployeeSalaryController::class, 'details'])->name('employees.salary.details');
         Route::get('/salary/delete/{id}', [EmployeeSalaryController::class, 'delete'])->name('employees.salary.delete');
+
+        //Employee Leave
+        Route::get('/leave/view', [EmployeeLeaveController::class, 'view'])->name('employees.leave.view');
+        Route::get('/leave/add', [EmployeeLeaveController::class, 'add'])->name('employees.leave.add');
+        Route::post('/leave/store', [EmployeeLeaveController::class, 'store'])->name('employees.leave.store');
+        Route::get('/leave/edit/{id}', [EmployeeLeaveController::class, 'edit'])->name('employees.leave.edit');
+        Route::post('/leave/update/{id}', [EmployeeLeaveController::class, 'update'])->name('employees.leave.update');
+        Route::get('/leave/details/{id}', [EmployeeLeaveController::class, 'details'])->name('employees.leave.details');
+        Route::get('/leave/delete/{id}', [EmployeeLeaveController::class, 'delete'])->name('employees.leave.delete');
+
+        //Employee Attendance
+        Route::get('/attend/view', [EmployeeAttendController::class, 'view'])->name('employees.attendance.view');
+        Route::get('/attend/add', [EmployeeAttendController::class, 'add'])->name('employees.attendance.add');
+        Route::post('/attend/store', [EmployeeAttendController::class, 'store'])->name('employees.attendance.store');
+        Route::get('/attend/edit/{id}', [EmployeeAttendController::class, 'edit'])->name('employees.attendance.edit');
+        Route::post('/attend/update/{id}', [EmployeeAttendController::class, 'update'])->name('employees.attendance.update');
+        Route::get('/attend/details/{id}', [EmployeeAttendController::class, 'details'])->name('employees.attendance.details');
+        Route::get('/attend/delete/{id}', [EmployeeAttendController::class, 'delete'])->name('employees.attendance.delete');
     });
 
 });

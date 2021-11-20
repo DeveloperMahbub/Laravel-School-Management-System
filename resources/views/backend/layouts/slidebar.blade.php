@@ -188,6 +188,18 @@
               <p>Employee Salary</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('employees.leave.view') }}" class="nav-link {{ ($route == 'employees.leave.view')? 'active': '' }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Employee Leave</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('employees.attendance.view') }}" class="nav-link {{ ($route == 'employees.attendance.view')? 'active': '' }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Employee Attendance</p>
+            </a>
+          </li>
         </ul>
       </li>
       
