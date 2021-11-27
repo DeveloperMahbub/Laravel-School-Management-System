@@ -32,8 +32,8 @@
           <!-- Custom tabs (Charts with tabs)-->
           <div class="card">
             <div class="card-header">
-                <h3>Employee Attendance List
-                    <a class="btn btn-success float-right btn-sm" href="{{ route('employees.attendance.add') }}"><i class="fa fa-plus-circle"></i> Add Employee Attendance</a>
+                <h3>Employee Attendance Details
+                    <a class="btn btn-success float-right btn-sm" href="{{ route('employees.attendance.view') }}"><i class="fa fa-list"></i> Employee Attendance List</a>
                 </h3>
             </div><!-- /.card-header -->
             <div class="card-body">
@@ -41,19 +41,24 @@
                     <thead>
                         <tr>
                           <th>SL.</th>
+                          <th>Name</th>
+                          <th>ID NO</th>
+                          <th>Email</th>
+                          <th>Mobile</th>
                           <th>Date</th>
-                          <th>Action</th>
+                          <th>Attend Status</th>
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach ($allData as $key => $value)
+                            @foreach ($details as $key => $detail)
                             <tr>
                                 <td>{{ $key+1 }}</td>
-                                <td>{{ date('d-m-Y',strtotime($value->date)) }}</td>
-                                <td>
-                                    <a href="{{ route('employees.attendance.edit',$value->date) }}" title="Edit" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                                    <a href="{{ route('employees.attendance.details',$value->date) }}" title="Details" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
-                                </td>
+                                <td>{{ $detail->user->name}}</td>
+                                <td>{{ $detail->user->id_no}}</td>
+                                <td>{{ $detail->user->email}}</td>
+                                <td>{{ $detail->user->mobile}}</td>
+                                <td>{{ date('d-m-Y',strtotime($detail->date)) }}</td>
+                                <td>{{ $detail->attend_status}}</td>
                             </tr>
                             @endforeach
                         </tbody>

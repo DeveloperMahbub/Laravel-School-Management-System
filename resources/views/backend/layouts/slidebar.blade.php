@@ -200,6 +200,12 @@
               <p>Employee Attendance</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('employees.monthly.salary.view') }}" class="nav-link {{ ($route == 'employees.monthly.salary.view')? 'active': '' }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Employ Monthly Salary</p>
+            </a>
+          </li>
         </ul>
       </li>
       

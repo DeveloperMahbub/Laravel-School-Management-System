@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\Employee\EmployeeAttendController;
 use App\Http\Controllers\Backend\Employee\EmployeeLeaveController;
 use App\Http\Controllers\Backend\Employee\EmployeeRegController;
 use App\Http\Controllers\Backend\Employee\EmployeeSalaryController;
+use App\Http\Controllers\Backend\Employee\MonthlySalaryController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\Setup\AssignSubjectController;
 use App\Http\Controllers\Backend\Setup\DesignationController;
@@ -210,10 +211,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
         Route::get('/attend/view', [EmployeeAttendController::class, 'view'])->name('employees.attendance.view');
         Route::get('/attend/add', [EmployeeAttendController::class, 'add'])->name('employees.attendance.add');
         Route::post('/attend/store', [EmployeeAttendController::class, 'store'])->name('employees.attendance.store');
-        Route::get('/attend/edit/{id}', [EmployeeAttendController::class, 'edit'])->name('employees.attendance.edit');
-        Route::post('/attend/update/{id}', [EmployeeAttendController::class, 'update'])->name('employees.attendance.update');
-        Route::get('/attend/details/{id}', [EmployeeAttendController::class, 'details'])->name('employees.attendance.details');
-        Route::get('/attend/delete/{id}', [EmployeeAttendController::class, 'delete'])->name('employees.attendance.delete');
+        Route::get('/attend/edit/{date}', [EmployeeAttendController::class, 'edit'])->name('employees.attendance.edit');
+        Route::get('/attend/details/{date}', [EmployeeAttendController::class, 'details'])->name('employees.attendance.details');
+        // Route::get('/attend/delete/{date}', [EmployeeAttendController::class, 'delete'])->name('employees.attendance.delete');
+
+        //Employee Monthly Salary
+        Route::get('/monthly/salary/view', [MonthlySalaryController::class, 'view'])->name('employees.monthly.salary.view');
+        Route::get('/monthly/salary/get', [MonthlySalaryController::class, 'getSalary'])->name('employees.monthly.salary.get');
+        Route::get('/monthly/salary/payslip/{employee_id}', [MonthlySalaryController::class, 'paySlip'])->name('employees.monthly.salary.payslip');
     });
 
 });

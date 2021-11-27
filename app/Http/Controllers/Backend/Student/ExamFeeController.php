@@ -72,8 +72,9 @@ class ExamFeeController extends Controller
         $class_id = $request->class_id;
         $data['exam_name'] = ExamType::where('id',$request->exam_type_id)->first()['name'];
         $data['details'] = AssignStudent::with(['discount','student'])->where('student_id',$student_id)->where('class_id',$class_id)->first();
-        $pdf = PDF::loadView('backend.student.exam_fee.exam-fee-pdf',$data);
-        return $pdf->stream('student-payslip.pdf');
+        return view('backend.student.exam_fee.exam-fee-pdf',$data);
+        // $pdf = PDF::loadView('backend.student.exam_fee.exam-fee-pdf',$data);
+        // return $pdf->stream('student-payslip.pdf');
 
     }
 }

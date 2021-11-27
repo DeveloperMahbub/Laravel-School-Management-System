@@ -78,12 +78,55 @@
                     @else
                         Add Employee Attendance
                     @endif
-                    <a class="btn btn-success float-right btn-sm" href="{{ route('employees.leave.view') }}"><i class="fa fa-list"></i> Employee Leave List</a>
+                    <a class="btn btn-success float-right btn-sm" href="{{ route('employees.attendance.view') }}"><i class="fa fa-list"></i> Employee Leave List</a>
                 </h3>
             </div><!-- /.card-header -->
             <div class="card-body">
                <form method="post" action="{{ route('employees.attendance.store') }}" id="myForm">
                    @csrf
+                   @if (isset($editData))
+                   <div class="form-group col-md-4">
+                    <label class="control-label">Attendance Date</label>
+                    <input type="text" name="date" value="{{ $editData['0']['date'] }}" id="date" class="checkdate form-control form-control-sm" placeholder="Attendance date" autocomplete="off" readonly>
+
+                </div>
+                <table class="table-sm table-bordered table-striped dt-responsive" style="width: 100%">
+                 <thead>
+                     <tr>
+                         <th rowspan="2" class="text-center" style="vertical-align: middle">SL</th>
+                         <th rowspan="2" class="text-center" style="vertical-align: middle">Employee Name</th>
+                         <th colspan="3" class="text-center" style="vertical-align: middle; width:25%">Attendance Status</th>
+                     </tr>
+                     <tr>
+                         <th class="text-center btn present_all" style="display: table-cell; background-color: #114190">Present</th>
+                         <th class="text-center btn leave_all" style="display: table-cell; background-color: #114190">Leave</th>
+                         <th class="text-center btn absent_all" style="display: table-cell; background-color: #114190">Absent</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                     @foreach ($editData as $key =>$data)
+                     <tr id="div{{ $data->id }}" class="text-center">
+                         <input type="hidden" name="employee_id[]" value="{{ $data->employee_id }}" class="employee_id">
+                         <td>{{ $key+1 }}</td>
+                         <td>{{ $data->user->name }}</td>
+                         <td colspan="3">
+                             <div class="switch-toggle switch-3 switch-candy">
+                                 <input class="present" type="radio" name="attend_status{{ $key }}" id="present{{ $key }}" value="Present" {{ ($data->attend_status=='Present')?'checked':'' }}>
+                                 <label for="present{{ $key }}">Present</label>
+                                 <input class="leave" type="radio" name="attend_status{{ $key }}" id="leave{{ $key }}" value="Leave" {{ ($data->attend_status=='Leave')?'checked':'' }}>
+                                 <label for="leave{{ $key }}">Leave</label>
+                                 <input class="absent" type="radio" name="attend_status{{ $key }}" id="absent{{ $key }}" value="Absent" {{ ($data->attend_status=='Absent')?'checked':'' }}>
+                                 <label for="absent{{ $key }}">Absent</label>
+                                 <a></a>
+                             </div>
+                         </td>
+                     </tr>
+                     @endforeach
+                 </tbody>
+                </table><br>
+                <button type="submit" class="btn btn-success btn-sm">{{ (@$editData)?'Update':'Submit' }}</button>
+                     
+                   @else
                    <div class="form-group col-md-4">
                        <label class="control-label">Attendance Date</label>
                        <input type="text" name="date" id="date" class="checkdate form-control form-control-sm singledatepicker" placeholder="Attendance date" autocomplete="off">
@@ -123,7 +166,8 @@
                         @endforeach
                     </tbody>
                    </table><br>
-                   <button type="submit" class="btn btn-success btn-sm">{{ (@$editData)?'Update':'Submit' }}</button>
+                   <button type="submit" class="btn btn-success btn-sm">Submit</button>
+                   @endif
                </form>
 
             </div><!-- /.card-body -->

@@ -89,7 +89,7 @@
                             <h6><strong>www.abcschoolbd.com</strong></h6>
                         </td>
                         <td class="text-center">
-                            <img src="{{ asset('upload/student_images/'.$details->student->image) }}" alt="" style="width: 100px; height:100px">
+                            <img src="{{ (!empty($details->student->image))?asset('upload/student_images/'.$details->student->image): asset('upload/no_image.jpg')}}" alt="" style="width: 100px; height:100px">
                         </td>
                     </tr>
                 </table>
@@ -182,7 +182,7 @@
                             <h6><strong>www.abcschoolbd.com</strong></h6>
                         </td>
                         <td class="text-center">
-                            <img src="{{ asset('upload/student_images/'.$details->student->image) }}" alt="" style="width: 90px; height:90px">
+                            <img src="{{ (!empty($details->student->image))?asset('upload/student_images/'.$details->student->image): asset('upload/no_image.jpg')}}" alt="" style="width: 100px; height:100px">
                         </td>
                     </tr>
                 </table>

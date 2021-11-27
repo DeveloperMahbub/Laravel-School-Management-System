@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Student Registration Fee</title>
+    <title>Employee Monthly Salary</title>
     <link rel="stylesheet" href="{{ asset('backend/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <style>
         .container{
@@ -76,6 +76,19 @@
 </head>
 <body>
     <div class="container">
+        @php
+            $date = date('Y-m', strtotime($totalattendgroupbyid['0']->date));
+            if($date != '')
+            {
+                $where[]= ['date','like',$date.'%'];
+            }
+            $totalattend = App\Models\EmployeeAttendance::with(['user'])->where($where)->where('employee_id',$totalattendgroupbyid['0']->employee_id)->get();
+            $sigleSalary = (float)$totalattendgroupbyid['0']['user']['salary'];
+            $salaryperday = (float)$sigleSalary/30;
+            $absentcount = count($totalattend->where('attend_status','Absent'));
+            $totalsalaryminus = (int)$absentcount*(float)$salaryperday;
+            $totalsalary = (int)$sigleSalary-(int)$totalsalaryminus;
+        @endphp
         <div class="row">
             <div class="col-md-12">
                 <table width="80%">
@@ -89,63 +102,40 @@
                             <h6><strong>www.abcschoolbd.com</strong></h6>
                         </td>
                         <td class="text-center">
-                            <img src="{{ (!empty($details->student->image))? asset('upload/student_images/'.$details->student->image): asset('upload/no_image.jpg')}}" alt="" style="width: 100px; height:100px">
+                            <img src="{{(!empty($totalattendgroupbyid['0']->user->image))?asset('upload/employee_images/'.$totalattendgroupbyid['0']->user->image): asset('upload/no_image.jpg') }}" alt="" style="width: 100px; height:100px">
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="col-md-12 text-center">
-                <h5 style="font-weight: bold; padding-top: -25px">Student Registration Fee</h5>
+                <h5 style="font-weight: bold; padding-top: -25px">Employee Monthly Salary</h5>
             </div>
             <div class="col-md-12">
-                @php
-                    $registrationfee = App\Models\FeeCategoryAmount::where('fee_category_id','1')->where('class_id',$details->class_id)->first();
-                    $originalfee = $registrationfee->amount;
-                    $discount = $details->discount->discount;
-                    $discountablefee = $discount/100*$originalfee;
-                    $finalfee = (int)$originalfee-(int)$discountablefee;
-                @endphp
                 <table border="1" width="100%">
                     <tbody>
                         <tr>
-                            <td style="width: 50%">ID No</td>
-                            <td>{{ $details->student->id_no }}</td>
+                            <td style="width: 50%">Employee Name</td>
+                            <td>{{ $totalattendgroupbyid['0']->user->name }}</td>
                         </tr>
                         <tr>
-                            <td style="width: 50%">Roll No</td>
-                            <td>{{ $details->roll }}</td>
+                            <td style="width: 50%">Id No</td>
+                            <td>{{ $totalattendgroupbyid['0']->user->id_no }}</td>
                         </tr>
                         <tr>
-                            <td style="width: 50%">Student Name</td>
-                            <td>{{ $details->student->name }}</td>
+                            <td style="width: 50%">Basic Salary</td>
+                            <td>{{ $totalattendgroupbyid['0']->user->salary }}</td>
                         </tr>
                         <tr>
-                            <td style="width: 50%">Father's Name</td>
-                            <td>{{ $details->student->fname }}</td>
+                            <td style="width: 50%">Total Absent This Month</td>
+                            <td>{{ $absentcount }}</td>
                         </tr>
                         <tr>
-                            <td style="width: 50%">Mother's Name</td>
-                            <td>{{ $details->student->mname }}</td>
+                            <td style="width: 50%">Month</td>
+                            <td>{{ date('M Y',strtotime($totalattendgroupbyid['0']->date)) }}</td>
                         </tr>
                         <tr>
-                            <td style="width: 50%">Year</td>
-                            <td>{{ $details->year->name }}</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 50%">Class</td>
-                            <td>{{ $details->student_class->name }}</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 50%">Registration Fee</td>
-                            <td>{{ $originalfee }} TK</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 50%">Discount Fee</td>
-                            <td>{{ $discount }} %</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 50%">Fee (This Student)</td>
-                            <td>{{ $finalfee }} TK</td>
+                            <td style="width: 50%">Salary For This Month</td>
+                            <td>{{ $totalsalary }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -174,7 +164,7 @@
                 <table width="80%">
                     <tr>
                         <td width="33%" class="text-center">
-                            <img src="{{ asset('upload/abc_school.jpg') }}" alt="" style="width: 90px; height:90px">
+                            <img src="{{ asset('upload/abc_school.jpg') }}" alt="" style="width: 100px; height:100px">
                         </td>
                         <td class="text-center" width="63%">
                             <h4><strong>Abc School</strong></h4>
@@ -182,63 +172,40 @@
                             <h6><strong>www.abcschoolbd.com</strong></h6>
                         </td>
                         <td class="text-center">
-                            <img src="{{ (!empty($details->student->image))? asset('upload/student_images/'.$details->student->image): asset('upload/no_image.jpg')}}" alt="" style="width: 90px; height:90px">
+                            <img src="{{(!empty($totalattendgroupbyid['0']->user->image))?asset('upload/employee_images/'.$totalattendgroupbyid['0']->user->image): asset('upload/no_image.jpg') }}" alt="" style="width: 100px; height:100px">
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="col-md-12 text-center">
-                <h5 style="font-weight: bold; padding-top: -25px">Student Registration Fee</h5>
+                <h5 style="font-weight: bold; padding-top: -25px">Employee Monthly Salary</h5>
             </div>
             <div class="col-md-12">
-                @php
-                    $registrationfee = App\Models\FeeCategoryAmount::where('fee_category_id','1')->where('class_id',$details->class_id)->first();
-                    $originalfee = $registrationfee->amount;
-                    $discount = $details->discount->discount;
-                    $discountablefee = $discount/100*$originalfee;
-                    $finalfee = (int)$originalfee-(int)$discountablefee;
-                @endphp
                 <table border="1" width="100%">
                     <tbody>
                         <tr>
-                            <td style="width: 50%">ID No</td>
-                            <td>{{ $details->student->id_no }}</td>
+                            <td style="width: 50%">Employee Name</td>
+                            <td>{{ $totalattendgroupbyid['0']->user->name }}</td>
                         </tr>
                         <tr>
-                            <td style="width: 50%">Roll No</td>
-                            <td>{{ $details->roll }}</td>
+                            <td style="width: 50%">Id No</td>
+                            <td>{{ $totalattendgroupbyid['0']->user->id_no }}</td>
                         </tr>
                         <tr>
-                            <td style="width: 50%">Student Name</td>
-                            <td>{{ $details->student->name }}</td>
+                            <td style="width: 50%">Basic Salary</td>
+                            <td>{{ $totalattendgroupbyid['0']->user->salary }}</td>
                         </tr>
                         <tr>
-                            <td style="width: 50%">Father's Name</td>
-                            <td>{{ $details->student->fname }}</td>
+                            <td style="width: 50%">Total Absent This Month</td>
+                            <td>{{ $absentcount }}</td>
                         </tr>
                         <tr>
-                            <td style="width: 50%">Mother's Name</td>
-                            <td>{{ $details->student->mname }}</td>
+                            <td style="width: 50%">Month</td>
+                            <td>{{ date('M Y',strtotime($totalattendgroupbyid['0']->date)) }}</td>
                         </tr>
                         <tr>
-                            <td style="width: 50%">Year</td>
-                            <td>{{ $details->year->name }}</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 50%">Class</td>
-                            <td>{{ $details->student_class->name }}</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 50%">Registration Fee</td>
-                            <td>{{ $originalfee }} TK</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 50%">Discount Fee</td>
-                            <td>{{ $discount }} %</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 50%">Fee (This Student)</td>
-                            <td>{{ $finalfee }} TK</td>
+                            <td style="width: 50%">Salary For This Month</td>
+                            <td>{{ $totalsalary }}</td>
                         </tr>
                     </tbody>
                 </table>
